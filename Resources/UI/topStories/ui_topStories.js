@@ -4,6 +4,78 @@ var OS = Ti.Platform.osname;
 var topStoriesContainer;
 
 var ti = {};
+var BB = {};
+
+function createBottomBarGUI(first, main, last, BottomView){
+	BB = {
+		
+		firstTitle : Titanium.UI.createLabel({
+			color : "#5D7F2F",
+			text : first,
+			font : {
+				fontSize : '15sp',
+				fontFamily : 'Helvetica Neue',
+			},
+			textAlign : 'center',
+			left : '-25%',
+			width : '50%',
+		}),
+		
+		mainTitle : Titanium.UI.createLabel({
+			color : "white",
+			text : main,
+			font : {
+				fontSize : '15sp',
+				fontFamily : 'Helvetica Neue',
+			},
+			textAlign : 'center',
+			left : '25.5%',
+			width : '50%',
+		}),
+		
+		lastTitle : Titanium.UI.createLabel({
+			color : "#5D7F2F",
+			text : last,
+			font : {
+				fontSize : '15sp',
+				fontFamily : 'Helvetica Neue',
+			},
+			textAlign : 'center',
+			left : '75.5%',
+			width : '50%',
+		}),
+		
+		sepratorI : Ti.UI.createView({
+			width : (OS == 'android') ? '2dp' : '1dp',
+			height : '60%',
+			left : '25%',
+			backgroundColor : '#668B34',
+		}),
+		
+		sepratorII : Ti.UI.createView({
+			width : (OS == 'android') ? '2dp' : '1dp',
+			height : '60%',
+			left : '75%',
+			backgroundColor : '#668B34',
+		}),
+		
+		upArrowIV : Ti.UI.createView({
+			width : '18dp',
+			height : '8dp',
+			bottom : '0',
+			backgroundImage : '/images/up-arrow@2x.png',
+		}),
+		
+	};
+	
+	BottomView.add(BB.firstTitle);
+	BottomView.add(BB.sepratorI);
+	BottomView.add(BB.mainTitle);
+	BottomView.add(BB.sepratorII);
+	BottomView.add(BB.lastTitle);
+	BottomView.add(BB.upArrowIV);
+	
+};
 
 var titles = [{
 	title : 'Coconut Health'
@@ -144,100 +216,6 @@ function buildTopStoriesGUI() {
 			backgroundColor : '#729C39',
 		}),
 
-		//===============TITLES====================
-		cocoTitle : Titanium.UI.createLabel({
-			color : "white",
-			text : 'Cocunut Health',
-			font : {
-				fontSize : '20sp',
-				fontFamily : 'Helvetica Neue',
-			},
-			textAlign : 'center',
-		}),
-		realFoodTitle : Titanium.UI.createLabel({
-			color : "white",
-			text : 'Real Food Nutrition',
-			font : {
-				fontSize : '20sp',
-				fontFamily : 'Helvetica Neue',
-			},
-			textAlign : 'center',
-		}),
-		medWatchTitle : Titanium.UI.createLabel({
-			color : "white",
-			text : 'Medicine Watch',
-			font : {
-				fontSize : '20sp',
-				fontFamily : 'Helvetica Neue',
-			},
-			textAlign : 'center',
-		}),
-		altHealthTitle : Titanium.UI.createLabel({
-			color : "white",
-			text : 'Alternative Health',
-			font : {
-				fontSize : '20sp',
-				fontFamily : 'Helvetica Neue',
-			},
-			textAlign : 'center',
-		}),
-		susAgriTitle : Titanium.UI.createLabel({
-			color : "white",
-			text : 'Sustainable Agriculture',
-			font : {
-				fontSize : '20sp',
-				fontFamily : 'Helvetica Neue',
-			},
-			textAlign : 'center',
-		}),
-
-		createdHealthTitle : Titanium.UI.createLabel({
-			color : "white",
-			text : 'Create4Health',
-			font : {
-				fontSize : '20sp',
-				fontFamily : 'Helvetica Neue',
-			},
-			textAlign : 'center',
-		}),
-
-		upArrowI : Ti.UI.createView({
-			width : '18dp',
-			height : '8dp',
-			bottom : '0',
-			backgroundImage : '/images/up-arrow@2x.png',
-		}),
-		upArrowII : Ti.UI.createView({
-			width : '18dp',
-			height : '8dp',
-			bottom : '0',
-			backgroundImage : '/images/up-arrow@2x.png',
-		}),
-		upArrowIII : Ti.UI.createView({
-			width : '18dp',
-			height : '8dp',
-			bottom : '0',
-			backgroundImage : '/images/up-arrow@2x.png',
-		}),
-		upArrowIV : Ti.UI.createView({
-			width : '18dp',
-			height : '8dp',
-			bottom : '0',
-			backgroundImage : '/images/up-arrow@2x.png',
-		}),
-		upArrowV : Ti.UI.createView({
-			width : '18dp',
-			height : '8dp',
-			bottom : '0',
-			backgroundImage : '/images/up-arrow@2x.png',
-		}),
-		upArrowVI : Ti.UI.createView({
-			width : '18dp',
-			height : '8dp',
-			bottom : '0',
-			backgroundImage : '/images/up-arrow@2x.png',
-		}),
-
 		//==============CREATE BULLETS VIEW HERE================
 		bulletView : Ti.UI.createView({
 			width : Ti.UI.SIZE,
@@ -313,20 +291,13 @@ function buildTopStoriesGUI() {
 	ti.bulletView.add(ti.bulletIV);
 	ti.bulletView.add(ti.bulletV);
 	ti.bulletView.add(ti.bulletVI);
-
-	ti.cocoBottom.add(ti.cocoTitle);
-	ti.realFoodBottom.add(ti.realFoodTitle);
-	ti.medWatchBottom.add(ti.medWatchTitle);
-	ti.altHealthBottom.add(ti.altHealthTitle);
-	ti.susAgriBottom.add(ti.susAgriTitle);
-	ti.createdHealthBottom.add(ti.createdHealthTitle);
-
-	ti.cocoBottom.add(ti.upArrowI);
-	ti.realFoodBottom.add(ti.upArrowII);
-	ti.medWatchBottom.add(ti.upArrowIII);
-	ti.altHealthBottom.add(ti.upArrowIV);
-	ti.susAgriBottom.add(ti.upArrowV);
-	ti.createdHealthBottom.add(ti.upArrowVI);
+	
+	createBottomBarGUI('','Coconut Health','Real Food Nutrition',ti.cocoBottom);
+	createBottomBarGUI('Coconut Health','Real Food Nutrition','Medicine Watch',ti.realFoodBottom);
+	createBottomBarGUI('Real Food Nutrition','Medicine Watch','Alternative Health',ti.medWatchBottom);
+	createBottomBarGUI('Medicine Watch','Alternative Health','Sustainable Agriculture',ti.altHealthBottom);
+	createBottomBarGUI('Alternative Health','Sustainable Agriculture','Created4Health',ti.susAgriBottom);
+	createBottomBarGUI('Sustainable Agriculture','Created4Health','',ti.createdHealthBottom);
 
 	ti.coco.add(ti.cocoBottom);
 	ti.realFood.add(ti.realFoodBottom);
@@ -346,9 +317,8 @@ function eventListenersTopStories() {
 	Ti.App.addEventListener('SET_FEEDS_DATA', function() {
 
 		var APP_DATA = Ti.App.Properties.getList('App_DATA');
-		
-		
-		Ti.API.info(' JSON DATA '+JSON.stringify(APP_DATA));
+
+		Ti.API.info(' JSON DATA ' + JSON.stringify(APP_DATA));
 
 		for (var i = 0, j = APP_DATA.length; i < j; i++) {
 

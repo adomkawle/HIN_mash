@@ -371,7 +371,8 @@ function createUIComps() {
 			height : '28dp',
 			width : '28dp',
 			backgroundImage : '/images/search.png',
-			bubbleParent : false
+			bubbleParent : false,
+			visible : false
 		}),
 
 	};
@@ -513,18 +514,23 @@ function eventListeners() {
 
 		if (e.source.title != "" && e.source.title != undefined && e.source.title != null) {
 			ti.title.text = e.source.title;
+			
+//menu-bg-selected.png
+//menu-bg-unselected.png			
 
 			for (var i = 0, j = navMenuView.getChildren().length; i < j; i++) {
 
 				if (navMenuView.getChildren()[i].title == e.source.title) {
-					navMenuView.getChildren()[i].backgroundImage = '/images/menu-bg-active@2x.png';
+					navMenuView.getChildren()[i].backgroundImage = '/images/menu-bg-selected.png';
 				} else {
-					navMenuView.getChildren()[i].backgroundImage = '/images/menu-bg@2x.png';
+					navMenuView.getChildren()[i].backgroundImage = '/images/menu-bg-unselected.png';
 				};
 			};
 
 			if (e.source.title == "Home") {
-
+				
+				ti.searchIcon.visible = false;
+				
 				ti.title.text = 'Top Stories';
 				ti.main_home.visible = true;
 				ti.aboutUS.visible = false;
@@ -540,7 +546,7 @@ function eventListeners() {
 				ti.create4Health.visible = false;
 
 			} else if (e.source.title == "About Us") {
-
+				
 				ti.searchIcon.visible = false;
 				search.searchContainerHome.visible = false;
 
@@ -645,7 +651,9 @@ function eventListeners() {
 				ti.termsOfUse.add(App.UI.terms.getTermsGUI());
 
 			} else if (e.source.title == "Coconut Health") {
-
+				
+				ti.searchIcon.visible = true;
+				
 				ti.title.text = 'Coconut Health';
 				ti.main_home.visible = false;
 				ti.aboutUS.visible = false;
@@ -663,7 +671,9 @@ function eventListeners() {
 				ti.cocoHealth.add(App.UI.cocoHealth.getCoconutHealthGUI());
 
 			} else if (e.source.title == "Real Food Nutrition") {
-
+			
+				ti.searchIcon.visible = true;
+			
 				ti.title.text = 'Real Food Nutrition';
 				ti.main_home.visible = false;
 				ti.aboutUS.visible = false;
@@ -681,7 +691,9 @@ function eventListeners() {
 				ti.realFood.add(App.UI.realFood.getRealFoodGUI());
 
 			} else if (e.source.title == "Created4Health") {
-
+				
+				ti.searchIcon.visible = true;
+				
 				ti.title.text = 'Created4Health';
 				ti.main_home.visible = false;
 				ti.aboutUS.visible = false;
@@ -700,6 +712,7 @@ function eventListeners() {
 
 			} else if (e.source.title == "Medicine Watch") {
 
+				ti.searchIcon.visible = true;
 				ti.title.text = 'Medicine Watch';
 				ti.main_home.visible = false;
 				ti.aboutUS.visible = false;
@@ -718,6 +731,8 @@ function eventListeners() {
 
 			} else if (e.source.title == "Alternative Health") {
 
+				ti.searchIcon.visible = true;
+
 				ti.title.text = 'Alternative Health';
 				ti.main_home.visible = false;
 				ti.aboutUS.visible = false;
@@ -735,6 +750,8 @@ function eventListeners() {
 				ti.altHealth.add(App.UI.altHealth.getAlternateHealthGUI());
 
 			} else if (e.source.title == "Sustainable Agriculture") {
+
+				ti.searchIcon.visible = true;
 
 				ti.title.text = 'Sustainable Agriculture';
 				ti.main_home.visible = false;
@@ -788,23 +805,22 @@ function eventListeners() {
 		Ti.App.fireEvent('STARTSPINNER');
 		ti.main_home.add(App.UI.topStories.getTopStoriesGUI());
 
-		Ti.App.fireEvent('SET_FEEDS_DATA');
-		Ti.App.fireEvent('STOPSPINNER');
+		//Ti.App.fireEvent('SET_FEEDS_DATA');
+		//Ti.App.fireEvent('STOPSPINNER');
 
-		/*		if (Ti.Network.online) {
-		 Ti.API.info('ONLINE');
-		 App.API.feeds.loadRssFeed({
-		 success : function(data) {
-		 Ti.API.info('SUCCESS');
-		 Ti.App.fireEvent('SET_FEEDS_DATA');
-		 Ti.App.fireEvent('STOPSPINNER');
-		 }
-		 });
-		 } else {
-		 Ti.App.fireEvent('SET_FEEDS_DATA');
-		 Ti.App.fireEvent('STOPSPINNER');
-		 }
-		 */
+		if (Ti.Network.online) {
+			Ti.API.info('ONLINE');
+			App.API.feeds.loadRssFeed({
+				success : function(data) {
+					Ti.API.info('SUCCESS');
+					Ti.App.fireEvent('SET_FEEDS_DATA');
+					Ti.App.fireEvent('STOPSPINNER');
+				}
+			});
+		} else {
+			Ti.App.fireEvent('SET_FEEDS_DATA');
+			Ti.App.fireEvent('STOPSPINNER');
+		}
 
 		if (OS == 'iphone' || OS == 'ipad') {
 			ti.firstWin.top = '20dp';
@@ -829,19 +845,62 @@ function eventListeners() {
 		whichScreenToSearch = ti.title.text;
 
 		if (whichScreenToSearch == "Home") {
-			
+			Ti.App.fireEvent('SEARCH_HOME', {
+				value : ""
+			});
 		} else if (whichScreenToSearch == "Coconut Health") {
-			
+			Ti.App.fireEvent('SEARCH_COCO', {
+				value : ""
+			});
 		} else if (whichScreenToSearch == "Created4Health") {
-			
+			Ti.App.fireEvent('SEARCH_CREATED', {
+				value : ""
+			});
 		} else if (whichScreenToSearch == "Medicine Watch") {
-			
+			Ti.App.fireEvent('SEARCH_MED', {
+				value : ""
+			});
 		} else if (whichScreenToSearch == "Alternative Health") {
-			
+			Ti.App.fireEvent('SEARCH_ALT', {
+				value : ""
+			});
 		} else if (whichScreenToSearch == "Real Food Nutrition") {
-			
+			Ti.App.fireEvent('SEARCH_REAL', {
+				value : ""
+			});
+		} else if (whichScreenToSearch == "Sustainable Agriculture") {
+			Ti.App.fireEvent('SEARCH_SUS', {
+				value : ""
+			});
 		}
 
+	});
+
+	search.searchTextField.addEventListener('return', function(e) {
+		search.searchTextField.value = "";
+		search.searchTextField.blur();
+
+		whichScreenToSearch = ti.title.text;
+
+		if (e.value.length > 0) {
+
+			if (whichScreenToSearch == "Home") {
+				Ti.App.fireEvent('SEARCH_HOME', e);
+			} else if (whichScreenToSearch == "Coconut Health") {
+				Ti.App.fireEvent('SEARCH_COCO', e);
+			} else if (whichScreenToSearch == "Created4Health") {
+				Ti.App.fireEvent('SEARCH_CREATED', e);
+			} else if (whichScreenToSearch == "Medicine Watch") {
+				Ti.App.fireEvent('SEARCH_MED', e);
+			} else if (whichScreenToSearch == "Alternative Health") {
+				Ti.App.fireEvent('SEARCH_ALT', e);
+			} else if (whichScreenToSearch == "Real Food Nutrition") {
+				Ti.App.fireEvent('SEARCH_REAL', e);
+			} else if (whichScreenToSearch == "Sustainable Agriculture") {
+				Ti.App.fireEvent('SEARCH_SUS', e);
+			}
+
+		}
 	});
 
 	Ti.App.addEventListener("STARTSPINNER", function() {

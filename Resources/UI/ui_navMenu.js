@@ -92,6 +92,9 @@ function createNavMenu() {
 		//navMenu.add(grp_section);
 		//navMenu.add(grp_sep);
 
+//menu-bg-selected.png
+//menu-bg-unselected.png
+
 		for (var i = 0, j = navBarData[n].length; i < j; i++) {
 
 			var dataRow = Ti.UI.createView({
@@ -101,7 +104,7 @@ function createNavMenu() {
 				title : navBarData[n][i].title,
 				index : i,
 				//backgroundColor : '#2c2a28'
-				backgroundImage : '/images/menu-bg@2x.png',
+				backgroundImage : '/images/menu-bg-unselected.png',
 				backgroundRepeat : true
 			});
 

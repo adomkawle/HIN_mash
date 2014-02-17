@@ -6,9 +6,9 @@ var topStoriesContainer;
 var ti = {};
 var BB = {};
 
-function createBottomBarGUI(first, main, last, BottomView){
+function createBottomBarGUI(first, main, last, BottomView) {
 	BB = {
-		
+
 		firstTitle : Titanium.UI.createLabel({
 			color : "#5D7F2F",
 			text : first,
@@ -20,7 +20,7 @@ function createBottomBarGUI(first, main, last, BottomView){
 			left : '-25%',
 			width : '50%',
 		}),
-		
+
 		mainTitle : Titanium.UI.createLabel({
 			color : "white",
 			text : main,
@@ -32,7 +32,7 @@ function createBottomBarGUI(first, main, last, BottomView){
 			left : '25.5%',
 			width : '50%',
 		}),
-		
+
 		lastTitle : Titanium.UI.createLabel({
 			color : "#5D7F2F",
 			text : last,
@@ -44,37 +44,37 @@ function createBottomBarGUI(first, main, last, BottomView){
 			left : '75.5%',
 			width : '50%',
 		}),
-		
+
 		sepratorI : Ti.UI.createView({
 			width : (OS == 'android') ? '2dp' : '1dp',
 			height : '60%',
 			left : '25%',
 			backgroundColor : '#668B34',
 		}),
-		
+
 		sepratorII : Ti.UI.createView({
 			width : (OS == 'android') ? '2dp' : '1dp',
 			height : '60%',
 			left : '75%',
 			backgroundColor : '#668B34',
 		}),
-		
+
 		upArrowIV : Ti.UI.createView({
 			width : '18dp',
 			height : '8dp',
 			bottom : '0',
 			backgroundImage : '/images/up-arrow@2x.png',
 		}),
-		
+
 	};
-	
+
 	BottomView.add(BB.firstTitle);
 	BottomView.add(BB.sepratorI);
 	BottomView.add(BB.mainTitle);
 	BottomView.add(BB.sepratorII);
 	BottomView.add(BB.lastTitle);
 	BottomView.add(BB.upArrowIV);
-	
+
 };
 
 var titles = [{
@@ -216,6 +216,49 @@ function buildTopStoriesGUI() {
 			backgroundColor : '#729C39',
 		}),
 
+		//=============CATEGORY IMAGES===============
+		cocoTop : Ti.UI.createView({
+			width : '100%',
+			height : '78%',
+			left : 0,
+			top : 0,
+		}),
+
+		realFoodTop : Ti.UI.createView({
+			width : '100%',
+			height : '78%',
+			left : 0,
+			top : 0,
+		}),
+
+		medWatchTop : Ti.UI.createView({
+			width : '100%',
+			height : '78%',
+			left : 0,
+			top : 0,
+		}),
+
+		altHealthTop : Ti.UI.createView({
+			width : '100%',
+			height : '78%',
+			left : 0,
+			top : 0,
+		}),
+
+		susAgriTop : Ti.UI.createView({
+			width : '100%',
+			height : '78%',
+			left : 0,
+			top : 0,
+		}),
+
+		createdHealthTop : Ti.UI.createView({
+			width : '100%',
+			height : '78%',
+			left : 0,
+			top : 0,
+		}),
+
 		//==============CREATE BULLETS VIEW HERE================
 		bulletView : Ti.UI.createView({
 			width : Ti.UI.SIZE,
@@ -291,13 +334,13 @@ function buildTopStoriesGUI() {
 	ti.bulletView.add(ti.bulletIV);
 	ti.bulletView.add(ti.bulletV);
 	ti.bulletView.add(ti.bulletVI);
-	
-	createBottomBarGUI('','Coconut Health','Real Food Nutrition',ti.cocoBottom);
-	createBottomBarGUI('Coconut Health','Real Food Nutrition','Medicine Watch',ti.realFoodBottom);
-	createBottomBarGUI('Real Food Nutrition','Medicine Watch','Alternative Health',ti.medWatchBottom);
-	createBottomBarGUI('Medicine Watch','Alternative Health','Sustainable Agriculture',ti.altHealthBottom);
-	createBottomBarGUI('Alternative Health','Sustainable Agriculture','Created4Health',ti.susAgriBottom);
-	createBottomBarGUI('Sustainable Agriculture','Created4Health','',ti.createdHealthBottom);
+
+	createBottomBarGUI('', 'Coconut Health', 'Real Food Nutrition', ti.cocoBottom);
+	createBottomBarGUI('Coconut Health', 'Real Food Nutrition', 'Medicine Watch', ti.realFoodBottom);
+	createBottomBarGUI('Real Food Nutrition', 'Medicine Watch', 'Alternative Health', ti.medWatchBottom);
+	createBottomBarGUI('Medicine Watch', 'Alternative Health', 'Sustainable Agriculture', ti.altHealthBottom);
+	createBottomBarGUI('Alternative Health', 'Sustainable Agriculture', 'Created4Health', ti.susAgriBottom);
+	createBottomBarGUI('Sustainable Agriculture', 'Created4Health', '', ti.createdHealthBottom);
 
 	ti.coco.add(ti.cocoBottom);
 	ti.realFood.add(ti.realFoodBottom);
@@ -305,6 +348,31 @@ function buildTopStoriesGUI() {
 	ti.altHealth.add(ti.altHealthBottom);
 	ti.susAgri.add(ti.susAgriBottom);
 	ti.createdHealth.add(ti.createdHealthBottom);
+	
+	ti.coco.add(ti.cocoTop);
+	ti.realFood.add(ti.realFoodTop);
+	ti.medWatch.add(ti.medWatchTop);
+	ti.altHealth.add(ti.altHealthTop);
+	ti.susAgri.add(ti.susAgriTop);
+	ti.createdHealth.add(ti.createdHealthTop);
+
+	var BG_for_CAT = Ti.App.Properties.getList('App_DATA');
+
+	for (var i = 0, j = BG_for_CAT.length; i < j; i++) {
+		if (BG_for_CAT[i].cat == "Medicine Watch") {
+			ti.medWatchTop.backgroundImage = BG_for_CAT[i].image;
+		} else if (BG_for_CAT[i].cat == "Coconut Health") {
+			ti.cocoTop.backgroundImage = BG_for_CAT[i].image;
+		} else if (BG_for_CAT[i].cat == "Real Food Nutrition") {
+			ti.realFoodTop.backgroundImage = BG_for_CAT[i].image;
+		} else if (BG_for_CAT[i].cat == "Alternative Health") {
+			ti.altHealthTop.backgroundImage = BG_for_CAT[i].image;
+		} else if (BG_for_CAT[i].cat == "Sustainable Agriculture") {
+			ti.susAgriTop.backgroundImage = BG_for_CAT[i].image;
+		} else if (BG_for_CAT[i].cat == "Created4Health") {
+			ti.createdHealthTop.backgroundImage = BG_for_CAT[i].image;
+		}
+	}
 
 	ti.scrollableView.views = [ti.coco, ti.realFood, ti.medWatch, ti.altHealth, ti.susAgri, ti.createdHealth];
 
@@ -573,6 +641,9 @@ function setFeedsDataForCategories(category) {
 }
 
 exports.getTopStoriesGUI = function() {
+	
+	ti.scrollableView.setCurrentPage(2);
+	
 	return topStoriesContainer;
 };
 

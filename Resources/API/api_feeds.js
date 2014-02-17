@@ -6,7 +6,8 @@ var config_API = require('config/cfg_api');
 config_API.set(this);
 //=================================================
 
-var RSS_URL = 'http://healthynews2day.com/feed/';
+//var RSS_URL = 'http://healthynews2day.com/feed/';
+var RSS_URL = "http://capitalsoftworks.co.uk/demo/hin_feed.xml";
 var MONTH_MAP = {
 	JAN : 1,
 	FEB : 2,
